@@ -17,6 +17,8 @@ int main(void)
 
     char board[9 * 9];
 
+    int game_state = 1;
+
     SetTargetFPS(10);               // Set our game to run at 10 frames-per-second
     //--------------------------------------------------------------------------------------
 
@@ -25,16 +27,33 @@ int main(void)
     {
         // Update
         //----------------------------------------------------------------------------------
-
-        // update_menu_scene(textBox, mouseOnText, name, framesCounter, letterCount);
-        update_game_scene(board);
+        switch (game_state)
+        {
+        case 0:
+            update_menu_scene(textBox, mouseOnText, name, framesCounter, letterCount);    
+            break;
+        
+        case 1:
+            update_game_scene(board);
+            break;
+        }
         //----------------------------------------------------------------------------------
 
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
 
-        draw_menu_scene(framesCounter, textBox, name, mouseOnText);
+        switch (game_state)
+        {
+        case 0:
+            draw_menu_scene(framesCounter, textBox, name, mouseOnText);
+            break;
+        
+        case 1:
+            draw_game_scene(board);
+            break;
+        }
+
 
         EndDrawing();
         //----------------------------------------------------------------------------------
