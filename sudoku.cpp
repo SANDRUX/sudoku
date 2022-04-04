@@ -2,8 +2,8 @@
 
 int main(void)
 {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 900;
+    const int screenHeight = 900;
 
     InitWindow(screenWidth, screenHeight, "sudoku");
 
@@ -15,7 +15,11 @@ int main(void)
     int framesCounter = 0;
     int letterCount = 0;
 
-    char board[9][9];
+    char ** board = new char*[9];
+    for (int i = 0; i < 9; i++)
+    {
+        board[i] = new char; 
+    }
 
     SetTargetFPS(10);               // Set our game to run at 10 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -27,6 +31,7 @@ int main(void)
         //----------------------------------------------------------------------------------
 
         update_menu_scene(textBox, mouseOnText, name, framesCounter, letterCount);
+        update_game_scene(board);
         //----------------------------------------------------------------------------------
 
         // Draw
@@ -43,6 +48,13 @@ int main(void)
     //--------------------------------------------------------------------------------------
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
+
+    for (int i = 0; i < 9; i++)
+    {
+        delete board[i];
+    }
+
+    delete [] board;
 
     return 0;
 }
