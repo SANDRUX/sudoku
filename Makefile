@@ -3,3 +3,9 @@ all:
 
 run: all
 	./a.out
+
+mac-all:
+	g++ scenes/game_scene.cpp scenes/menu_scene.cpp sudoku.cpp -framework IOKit -framework Cocoa -framework OpenGL `pkg-config --libs --cflags raylib` -lpthread -lm -ldl -std=c++11 -o sudoku.app
+
+mac-run: mac-all
+	./sudoku.app
