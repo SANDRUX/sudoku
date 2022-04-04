@@ -7,9 +7,9 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "sudoku");
 
-    char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space required for null terminator char '\0'
+    char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
 
-    Rectangle textBox = { screenWidth/2.0f - 100, 180, 225, 50 };
+    Rectangle textBox = {screenWidth / 2.0f - 100, 180, 225, 50};
     bool mouseOnText = false;
 
     int framesCounter = 0;
@@ -17,22 +17,27 @@ int main(void)
 
     char board[9 * 9];
 
-    int game_state = 1;
+    for (int i = 0; i < 81; i++)
+    {
+        board[i] = ' ';
+    }
 
-    SetTargetFPS(10);               // Set our game to run at 10 frames-per-second
+    int game_state = 0;
+
+    SetTargetFPS(15); // Set our game to run at 10 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
         switch (game_state)
         {
         case 0:
-            update_menu_scene(textBox, mouseOnText, name, framesCounter, letterCount);    
+            update_menu_scene(textBox, mouseOnText, name, framesCounter, letterCount, game_state);
             break;
-        
+
         case 1:
             update_game_scene(board);
             break;
@@ -48,12 +53,11 @@ int main(void)
         case 0:
             draw_menu_scene(framesCounter, textBox, name, mouseOnText);
             break;
-        
+
         case 1:
             draw_game_scene(board);
             break;
         }
-
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -61,7 +65,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    CloseWindow(); // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;
@@ -74,7 +78,8 @@ bool IsAnyKeyPressed()
     bool keyPressed = false;
     int key = GetKeyPressed();
 
-    if ((key >= 32) && (key <= 126)) keyPressed = true;
+    if ((key >= 32) && (key <= 126))
+        keyPressed = true;
 
     return keyPressed;
 }

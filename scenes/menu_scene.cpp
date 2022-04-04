@@ -1,9 +1,11 @@
 #include "../sudoku.hpp"
 
-void update_menu_scene(Rectangle textBox, bool mouseOnText, char * name, int framesCounter, int & letterCount)
+void update_menu_scene(Rectangle textBox, bool mouseOnText, char *name, int framesCounter, int &letterCount, int &game_state)
 {
-    if (CheckCollisionPointRec(GetMousePosition(), textBox)) mouseOnText = true;
-    else mouseOnText = false;
+    if (CheckCollisionPointRec(GetMousePosition(), textBox))
+        mouseOnText = true;
+    else
+        mouseOnText = false;
 
     if (mouseOnText)
     {
@@ -20,35 +22,46 @@ void update_menu_scene(Rectangle textBox, bool mouseOnText, char * name, int fra
             if ((key >= 32) && (key <= 125) && (letterCount < MAX_INPUT_CHARS))
             {
                 name[letterCount] = (char)key;
-                name[letterCount+1] = '\0'; // Add null terminator at the end of the string.
+                name[letterCount + 1] = '\0'; // Add null terminator at the end of the string.
                 letterCount++;
             }
 
-            key = GetCharPressed();  // Check next character in the queue
+            key = GetCharPressed(); // Check next character in the queue
         }
 
         if (IsKeyPressed(KEY_BACKSPACE))
         {
             letterCount--;
-            if (letterCount < 0) letterCount = 0;
+            if (letterCount < 0)
+                letterCount = 0;
             name[letterCount] = '\0';
         }
-    }
-    else SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 
-    if (mouseOnText) framesCounter++;
-    else framesCounter = 0;   
+        if (IsKeyPressed(KEY_ENTER))
+        {
+            game_state = 1;
+        }
+    }
+    else
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+
+    if (mouseOnText)
+        framesCounter++;
+    else
+        framesCounter = 0;
 }
 
-void draw_menu_scene(int framesCounter, Rectangle textBox, const char * name, const bool mouseOnText)
+void draw_menu_scene(int framesCounter, Rectangle textBox, const char *name, const bool mouseOnText)
 {
     ClearBackground(RAYWHITE);
 
     DrawText("Enter minutes: ", 240, 140, 20, GRAY);
 
     DrawRectangleRec(textBox, LIGHTGRAY);
-    if (mouseOnText) DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
-    else DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
+    if (mouseOnText)
+        DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
+    else
+        DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 
     DrawText(name, (int)textBox.x + 5, (int)textBox.y + 8, 40, MAROON);
 
@@ -59,8 +72,10 @@ void draw_menu_scene(int framesCounter, Rectangle textBox, const char * name, co
         if (strlen(name) < MAX_INPUT_CHARS)
         {
             // Draw blinking underscore char
-            if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
+            if (((framesCounter / 20) % 2) == 0)
+                DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
         }
-        else DrawText("Press BACKSPACE to delete chars...", 230, 300, 20, GRAY);
+        else
+            DrawText("Press BACKSPACE to delete chars...", 230, 300, 20, GRAY);
     }
 }
