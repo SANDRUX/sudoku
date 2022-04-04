@@ -24,7 +24,10 @@ void draw_game_scene(const char * board)
         for (int j = 0; j < 9; j++)
         {
             DrawRectangleLines(i * 100, j * 100, 100, 100, WHITE);
-            DrawText(&board[i + j * 9], i * 100 + 10, j * 100 + 10, 80, BLUE);
+            DrawRectangle(i * 100 + 10, j * 100 + 10, 
+            (board[i + j * 9] - '0') * 80 / 9, 80, RED);
+
+            // DrawText(&board[i + j * 9], i * 100 + 30, j * 100 + 15, 80, BLUE);
         }
     }
 }
