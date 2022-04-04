@@ -1,6 +1,6 @@
 #include "../sudoku.hpp"
 
-void update_game_scene(char ** board)
+void update_game_scene(char * board)
 {
     if (IsMouseButtonPressed(0))
     {
@@ -11,7 +11,7 @@ void update_game_scene(char ** board)
 
         int value = GetCharPressed();
 
-        board[i][j] = value;    
+        board[i + j * 9] = value;    
     }
 }
 
