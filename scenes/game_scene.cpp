@@ -46,6 +46,10 @@ void draw_game_scene(const char *board)
             text[1] = '\0';
 
             DrawText(text, i * 100 + 30, j * 100 + 15, 80, BLUE);
+            DrawLine(0, 300, 900, 300, RED);
+            DrawLine(0, 600, 900, 600, RED);
+            DrawLine(300, 0, 300, 900, RED);
+            DrawLine(600, 0, 600, 900, RED);
         }
     }
 }
