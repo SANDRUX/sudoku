@@ -1,6 +1,6 @@
 #include "../sudoku.hpp"
 
-void update_menu_scene(Rectangle textBox, bool mouseOnText, char *name, int framesCounter, int &letterCount, int &game_state)
+void update_menu_scene(Rectangle textBox, bool mouseOnText, char *name, int framesCounter, int &letterCount, int &game_state, time_t &seconds)
 {
     if (CheckCollisionPointRec(GetMousePosition(), textBox))
         mouseOnText = true;
@@ -39,6 +39,7 @@ void update_menu_scene(Rectangle textBox, bool mouseOnText, char *name, int fram
 
         if (IsKeyPressed(KEY_ENTER))
         {
+            seconds = (60 * atoi(name)) + time(NULL);
             game_state = 1;
         }
     }

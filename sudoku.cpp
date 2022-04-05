@@ -5,24 +5,40 @@ int main(void)
     const int screenWidth = 900;
     const int screenHeight = 900;
 
-    InitWindow(screenWidth, screenHeight, "sudoku");
-
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
 
-    Rectangle textBox = {screenWidth / 2.0f - 100, 180, 225, 50};
     bool mouseOnText = false;
 
     int framesCounter = 0;
     int letterCount = 0;
 
-    char board[9 * 9];
+    int temp[81] = {3, 0, 6, 5, 0, 8, 4, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 8, 7, 0, 0, 0, 0, 3, 1, 0, 0, 3, 0, 1, 0, 0, 8, 0, 9, 0, 0, 8, 6, 3, 0, 0, 5, 0, 5, 0, 0, 9, 0, 6, 0, 0, 1, 3, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4, 0, 0, 5, 2, 0, 6, 3, 0, 0};
+    int temp2[81] = {3, 1, 6, 5, 7, 8, 4, 9, 2, 5, 2, 9, 1, 3, 4, 7, 6, 8, 4, 8, 7, 6, 2, 9, 5, 3, 1, 2, 6, 3, 4, 1, 5, 9, 8, 7, 9, 7, 4, 8, 6, 3, 1, 2, 5, 8, 5, 1, 7, 9, 2, 6, 4, 3, 1, 3, 8, 9, 4, 7, 2, 5, 6, 6, 9, 2, 3, 5, 1, 8, 7, 4, 7, 4, 5, 2, 8, 6, 3, 1, 9};
+    char board[81];
+    char solved[81];
+    int counter = 0;
 
     for (int i = 0; i < 81; i++)
     {
-        board[i] = ' ';
+        if (temp[i] != 0)
+        {
+            board[i] = temp[i] + '0';
+        }
+
+        else
+        {
+            board[i] = ' ';
+            counter++;
+        }
+        solved[i] = temp2[i] + '0';
     }
 
     int game_state = 0;
+
+    time_t seconds;
+
+    InitWindow(screenWidth, screenHeight, "sudoku");
+    Rectangle textBox = {screenWidth / 2.0f - 100, 180, 225, 50};
 
     SetTargetFPS(15); // Set our game to run at 10 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -35,13 +51,21 @@ int main(void)
         switch (game_state)
         {
         case 0:
-            update_menu_scene(textBox, mouseOnText, name, framesCounter, letterCount, game_state);
+            update_menu_scene(textBox, mouseOnText, name, framesCounter, letterCount, game_state, seconds);
             break;
 
         case 1:
-            update_game_scene(board);
+            if (time(NULL) >= seconds)
+            {
+                game_state = 2;
+            }
+            update_game_scene(board, solved, game_state, counter);
             break;
         }
+
+        // printf("time(NULL): %d seconds: %d", time(NULL), seconds);
+        // fflush(stdout);
+
         //----------------------------------------------------------------------------------
 
         // Draw
@@ -56,6 +80,20 @@ int main(void)
 
         case 1:
             draw_game_scene(board);
+            // char sec[2];
+            // sec[0] = (int)(time(NULL) - seconds) + '0';
+            // sec[1] = '\0';
+            // printf("%c", sec[0]);
+            // fflush(stdout);
+            // DrawText(sec, 420, 920, 80, RED);
+            break;
+
+        case 2:
+            draw_game_over_scene();
+            break;
+
+        case 3:
+            draw_win_game_scene();
             break;
         }
 
