@@ -39,7 +39,7 @@ void update_menu_scene(Rectangle textBox, bool mouseOnText, char *name, int fram
 
         if (IsKeyPressed(KEY_ENTER))
         {
-            seconds = (60 * atoi(name)) + time(NULL);
+            seconds = (60 * atoi(name)) + (time(NULL));
             game_state = 1;
         }
     }

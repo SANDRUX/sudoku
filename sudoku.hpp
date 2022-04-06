@@ -1,10 +1,13 @@
 #pragma once
 
+#define _OPEN_SYS_ITOA_EXT
+
 #include <raylib.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include <string>
 
 #define MAX_INPUT_CHARS 2
 

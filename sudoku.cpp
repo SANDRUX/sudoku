@@ -3,7 +3,7 @@
 int main(void)
 {
     const int screenWidth = 900;
-    const int screenHeight = 900;
+    const int screenHeight = 1000;
 
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
 
@@ -40,7 +40,7 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "sudoku");
     Rectangle textBox = {screenWidth / 2.0f - 100, 180, 225, 50};
 
-    SetTargetFPS(15); // Set our game to run at 10 frames-per-second
+    SetTargetFPS(60); // Set our game to run at 10 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -86,6 +86,10 @@ int main(void)
             // printf("%c", sec[0]);
             // fflush(stdout);
             // DrawText(sec, 420, 920, 80, RED);
+            char sec[10];
+            // sec[0] = (static_cast<int>(clock() / CLOCKS_PER_SEC) - seconds) + '0';
+
+            DrawText(std::to_string(seconds - time(NULL)).c_str(), 420, 920, 80, RED);
             break;
 
         case 2:
