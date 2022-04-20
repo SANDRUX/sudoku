@@ -110,7 +110,7 @@ int main(void)
             char sec[10];
             // sec[0] = (static_cast<int>(clock() / CLOCKS_PER_SEC) - seconds) + '0';
 
-            DrawText(std::to_string(seconds - time(NULL)).c_str(), 420, 920, 80, RED);
+            DrawText(std::to_string(seconds - time(NULL)).c_str(), 400, 920, 80, RED);
             break;
 
         case 2:

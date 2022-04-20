@@ -6,7 +6,7 @@ void fill_with_zeros(int board[9][9], int &counter)
     {
         for (int j = 0; j < 9; j++)
         {
-            if (!(rand() % 3))
+            if (rand() % 2)
             {
                 board[i][j] = 0;
                 counter++;

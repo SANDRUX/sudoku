@@ -26,7 +26,7 @@ void update_menu_scene(Rectangle textBox, bool mouseOnText, char *name, int fram
                 letterCount++;
             }
 
-            key = GetCharPressed(); // Check next character in the queue
+            key = GetCharPressed();
         }
 
         if (IsKeyPressed(KEY_BACKSPACE))
@@ -40,6 +40,7 @@ void update_menu_scene(Rectangle textBox, bool mouseOnText, char *name, int fram
         if (IsKeyPressed(KEY_ENTER))
         {
             seconds = (60 * atoi(name)) + (time(NULL));
+            SetMouseCursor(MOUSE_CURSOR_ARROW);
             game_state = 1;
         }
     }
@@ -54,9 +55,9 @@ void update_menu_scene(Rectangle textBox, bool mouseOnText, char *name, int fram
 
 void draw_menu_scene(int framesCounter, Rectangle textBox, const char *name, const bool mouseOnText)
 {
-    ClearBackground(RAYWHITE);
+    ClearBackground(BLUE);
 
-    DrawText("Enter minutes: ", 240, 140, 20, GRAY);
+    DrawText("Enter minutes: ", 350, 140, 20, PINK);
 
     DrawRectangleRec(textBox, LIGHTGRAY);
     if (mouseOnText)
@@ -66,17 +67,12 @@ void draw_menu_scene(int framesCounter, Rectangle textBox, const char *name, con
 
     DrawText(name, (int)textBox.x + 5, (int)textBox.y + 8, 40, MAROON);
 
-    DrawText(TextFormat("INPUT CHARS: %i/%i", strlen(name), MAX_INPUT_CHARS), 315, 250, 20, DARKGRAY);
-
     if (mouseOnText)
     {
         if (strlen(name) < MAX_INPUT_CHARS)
         {
-            // Draw blinking underscore char
             if (((framesCounter / 20) % 2) == 0)
                 DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
         }
-        else
-            DrawText("Press BACKSPACE to delete chars...", 230, 300, 20, GRAY);
     }
 }

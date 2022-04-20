@@ -72,7 +72,6 @@ again:
             if (board[i][j] == 0)
             {
                 goto again;
-                return;
             }
         }
     }
