@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <string>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 #define MAX_INPUT_CHARS 2
 
@@ -17,3 +20,5 @@ void draw_game_scene(const char *);
 void update_game_scene(char *, char *, int &, int &);
 void draw_game_over_scene();
 void draw_win_game_scene();
+void generate_map(int[9][9]);
+void fill_with_zeros(int[9][9], int &);
